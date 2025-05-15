@@ -10,12 +10,13 @@ import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 import javafx.geometry.Pos;
 
-public class SimpleVNEngine extends Application {
-
+public class VNEngine extends Application {
+	private Character Atri = new Atri();
+	
     @Override
     public void start(Stage primaryStage) {
         // Character Image
-        ImageView characterImage = new ImageView(new Image("file:images/char_happy.png"));
+        ImageView characterImage = new ImageView(new Image("fgimage/tatr03_l_231.png"));
         characterImage.setFitHeight(300);
         characterImage.setPreserveRatio(true);
 
