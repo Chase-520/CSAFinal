@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,9 +11,10 @@ public class VNEngine extends Application {
     public void start(Stage stage) {
     	loadSceneTree();
         controller = new SceneController(stage,sceneTree);
-
-        controller.registerScene("ch1_0", () -> new IntroScene(800, 600));
-        controller.registerScene("ch1_1"),() -> new GameScene());
+        
+        controller.registerScene("ch1_0", () -> new IntroScene(800, 600, "bg/bg001a.png"));
+        controller.registerScene("ch1_1", () -> new IntroScene(800, 600, "bg/bg001c.png"));
+        controller.registerScene("ch1_2", () -> new GameScene(800, 600, "bg/bg001.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\something.csv"));
         // register many more scenes...
         
         controller.setScene("ch1_0");
@@ -28,5 +28,6 @@ public class VNEngine extends Application {
 		sceneTree = new ArrayList<String>();
 		sceneTree.add("ch1_0");
 		sceneTree.add("ch1_1");
+		sceneTree.add("ch1_2");
 	}
 }

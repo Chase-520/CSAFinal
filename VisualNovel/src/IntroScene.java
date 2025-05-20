@@ -3,8 +3,8 @@ import java.util.List;
 
 public class IntroScene extends GameScene {
 
-    public IntroScene(int width, int height) {
-        super(width, height);
+    public IntroScene(int width, int height, String bg) {
+        super(width, height, bg);
         this.id = "intro";
     }
 
@@ -18,7 +18,7 @@ public class IntroScene extends GameScene {
 
 
 	@Override
-	protected List<DialogueLine> loadDialogues(String textPath) {
+	protected List<DialogueLine> _loadDialogues(String textPath) {
 		// TODO Auto-generated method stub
 		return null;
 	}

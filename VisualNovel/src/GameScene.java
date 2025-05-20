@@ -10,8 +10,14 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
 
-public abstract class GameScene {
+
+public class GameScene {
     protected String id;
     protected Scene scene;
     protected StackPane root;
@@ -21,14 +27,13 @@ public abstract class GameScene {
     protected int currentIndex = 0;
     protected SceneCompleteListener sceneCompleteListener;
 
-
-    public GameScene(int width, int height) {
+    public GameScene(int width, int height, String bg) {
         initCommonUI(width, height);
         Button startButton = new Button("Start");
         startButton.setOnAction(e -> onSceneComplete());
         StackPane.setAlignment(startButton, Pos.CENTER_LEFT);
         StackPane.setMargin(startButton, new Insets(0, 0, 50, 0));
-        setBackground("bg/bg001a.png");
+        setBackground(bg);
         root.getChildren().add(startButton);
     }
 
@@ -66,7 +71,7 @@ public abstract class GameScene {
     }
 
     protected void loadDialogue(String textPath) {
-        DM = new DialogueManager(loadDialogues(textPath));
+        DM = new DialogueManager(_loadDialogues(textPath));
         if (DM != null && !DM.isEmpty()) {
             DialogueLine line = DM.getCurrentLine();
             showDialogue(line.getText());
@@ -102,10 +107,13 @@ public abstract class GameScene {
         	FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), root);
         	fadeOut.setFromValue(100);
         	fadeOut.setToValue(0);
+            fadeOut.setOnFinished(event -> sceneCompleteListener.onSceneComplete(this));
         	fadeOut.play();
-            sceneCompleteListener.onSceneComplete(this);
+            //sceneCompleteListener.onSceneComplete(this);
         }
     }
 
-    protected abstract List<DialogueLine> loadDialogues(String textPath);
+    protected List<DialogueLine> _loadDialogues(String textPath) {
+    	return loadTest.loadDialoguesFromCSV(textPath);
+    }
 }

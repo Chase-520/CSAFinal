@@ -11,5 +11,11 @@ public class DialogueLine {
 
     public Character getCharacter() { return character; }
     public String getExpression() { return expression; }
-    public String getText() { return text; }
+    public String getText() { 
+    	if (this.text !=null ){
+    		return text; 
+    	}else {
+    		return "";
+    	}
+    }
 }
