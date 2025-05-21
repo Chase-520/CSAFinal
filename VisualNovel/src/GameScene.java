@@ -21,15 +21,19 @@ public class GameScene {
     protected String id;
     protected Scene scene;
     protected StackPane root;
+    
     protected Label dialogueLabel;
-    protected DialogueManager DM;
     protected ImageView bgImageView;
+    protected ImageView dialogueBg;
+    
     protected int currentIndex = 0;
+    protected DialogueManager DM;
     protected SceneCompleteListener sceneCompleteListener;
 
     public GameScene(int width, int height, String bg) {
         initCommonUI(width, height);
         Button startButton = new Button("Start");
+        startButton.setStyle("-fx-pref-width: 120; -fx-pref-height: 90;");
         startButton.setOnAction(e -> onSceneComplete());
         StackPane.setAlignment(startButton, Pos.CENTER_LEFT);
         StackPane.setMargin(startButton, new Insets(0, 0, 50, 0));
@@ -39,36 +43,51 @@ public class GameScene {
 
     public GameScene(int width, int height, String bgPath, String textPath) {
         initCommonUI(width, height);
+        scene.setOnMouseClicked(e -> nextDialogue());
         setBackground(bgPath);
+        initDialogueText();
         loadDialogue(textPath);
     }
-
+    
     private void initCommonUI(int width, int height) {
-        dialogueLabel = new Label();
-        dialogueLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: white;");
-        dialogueLabel.setWrapText(true);
-        dialogueLabel.setOpacity(0.8);
-
         root = new StackPane();
         root.setStyle("-fx-padding: 20px;");
         scene = new Scene(root, width, height);
-
-        scene.setOnMouseClicked(e -> nextDialogue());
     }
+    
+    protected void setBackground(String bgPath) {
+    	Image bgImage = new Image(bgPath);
+    	bgImageView = new ImageView(bgImage);
+    	bgImageView.setFitWidth(scene.getWidth());
+    	bgImageView.setFitHeight(scene.getHeight());
+    	bgImageView.setPreserveRatio(false);
+    	root.getChildren().add(bgImageView);
+    }
+    
+    private void initDialogueBackground() {
+    	Image bgImage = new Image(""); // TODO add patht o dialogue background
+    	dialogueBg = new ImageView(bgImage);
+    	dialogueBg.setFitWidth(400);
+    	dialogueBg.setFitHeight(200);
+    	StackPane.setAlignment(dialogueBg, Pos.BOTTOM_CENTER);
+    }
+    
+    private void initDialogueText() {
+    	dialogueLabel = new Label();
+    	dialogueLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+    	dialogueLabel.setWrapText(true);
+    	dialogueLabel.setOpacity(0.8);
+    	StackPane.setAlignment(dialogueLabel, Pos.BOTTOM_CENTER);
+    	// insets top right bottom left
+    	StackPane.setMargin(dialogueLabel, new Insets(0,0,100,0));
+    	root.getChildren().add(dialogueLabel);
+    }
+    
     
     public Scene getScene() {
     	return scene;
     }
 
-    protected void setBackground(String bgPath) {
-        Image bgImage = new Image(bgPath);
-        bgImageView = new ImageView(bgImage);
-        bgImageView.setFitWidth(scene.getWidth());
-        bgImageView.setFitHeight(scene.getHeight());
-        bgImageView.setPreserveRatio(false);
-
-        root.getChildren().addAll(bgImageView, dialogueLabel);
-    }
 
     protected void loadDialogue(String textPath) {
         DM = new DialogueManager(_loadDialogues(textPath));
