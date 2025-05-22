@@ -9,7 +9,7 @@ public class Character {
     // Default constructor
     public Character() {
     }
-
+    
     // Constructor with initialization
     public Character(String name, String path) {
         this.name = name;
@@ -41,5 +41,9 @@ public class Character {
 
     public String getStateImage(String state) {
         return stateImages.get(state);
+    }
+    
+    public String toString() {
+    	return this.name;
     }
 }

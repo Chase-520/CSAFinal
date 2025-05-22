@@ -16,6 +16,9 @@ public class DialogueManager {
     }
 
     public boolean nextLine() {
+    	System.out.println("Mouse clicked");
+    	System.out.println("line size: " + lines.size());
+    	System.out.println("Current index: " + currentIndex);
         if (currentIndex < lines.size() - 1) {
             currentIndex++;
             return true; // advanced to next line
@@ -33,7 +36,7 @@ public class DialogueManager {
     }
     
     public boolean hasNext() {
-    	return currentIndex<lines.size();
+    	return currentIndex<lines.size()-1;
     }
     public void reset() {
         currentIndex = 0;

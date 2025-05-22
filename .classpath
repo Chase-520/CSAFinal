@@ -61,5 +61,30 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="//dohome2.pusd.dom/Home2$/Student2/1914840/Chrome Downloads/json-20250517.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="//dohome2.pusd.dom/Home2$/Student2/1914840/Chrome Downloads/jackson-databind-2.18.3.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="//dohome2.pusd.dom/Home2$/Student2/1914840/Chrome Downloads/jackson-databind-2.18.3-javadoc.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="//dohome2.pusd.dom/Home2$/Student2/1914840/Chrome Downloads/jackson-annotations-2.18.3.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="//dohome2.pusd.dom/Home2$/Student2/1914840/Chrome Downloads/jackson-core-2.18.3.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
