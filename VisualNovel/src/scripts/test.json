@@ -1,17 +1,22 @@
 [
   {
-    "speaker": "Alice",
-    "text": "Hello! How are you?",
-    "emotion": "happy"
+    "character": "Alice",
+    "expression": "happy",
+    "text": "Hi there! Welcome to our school."
   },
   {
-    "speaker": "Bob",
-    "text": "I'm good, thanks!",
-    "emotion": "neutral"
+    "character": "Bob",
+    "expression": "neutral",
+    "text": "Thanks, I'm a bit nervous though."
   },
   {
-    "speaker": "Alice",
-    "text": "Glad to hear that!",
-    "emotion": "smile"
+    "character": "Alice",
+    "expression": "smile",
+    "text": "Don’t worry, everyone’s really friendly here."
+  },
+  {
+    "character": "Bob",
+    "expression": "surprised",
+    "text": "That's good to hear!"
   }
 ]

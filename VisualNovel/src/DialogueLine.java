@@ -3,6 +3,9 @@ public class DialogueLine {
     private String expression; // e.g., "happy", "sad"
     private String text;
 
+    public DialogueLine() {
+    	
+    }
     public DialogueLine(Character character, String text, String expression) {
         this.character = character;
         this.expression = expression;
@@ -17,5 +20,14 @@ public class DialogueLine {
     	}else {
     		return "";
     	}
+    }
+    public void setCharacter(Character ch) {
+    	this.character = ch;
+    }
+    public void setExpression(String ex) {
+    	this.expression = ex;
+    }
+    public void setText(String tx) {
+    	this.text = tx;
     }
 }

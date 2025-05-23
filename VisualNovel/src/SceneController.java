@@ -44,6 +44,9 @@ public class SceneController implements SceneCompleteListener{
 	@Override
 	public void onSceneComplete(GameScene completedScene) {
 		System.out.println("[INFO] current scene id: " + getId(this.currentSceneIndex));
+		if(this.currentSceneIndex + 1>=sceneTree.size()) {
+			return;
+		}
 		System.out.println("[INFO] next scene id: "+ getId(this.currentSceneIndex + 1));
 		String nextId = getId(this.currentSceneIndex + 1);
 		this.currentSceneIndex ++;

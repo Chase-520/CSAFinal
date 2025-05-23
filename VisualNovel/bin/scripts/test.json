@@ -1,17 +1,12 @@
 [
   {
-    "speaker": "Alice",
-    "text": "Hello! How are you?",
+    "speaker": { "name": "Alice", "otherInfo": "" },
+    "text": "Hello there!",
     "emotion": "happy"
   },
   {
-    "speaker": "Bob",
-    "text": "I'm good, thanks!",
-    "emotion": "neutral"
-  },
-  {
-    "speaker": "Alice",
-    "text": "Glad to hear that!",
-    "emotion": "smile"
+    "speaker": { "name": "Bob", "otherInfo": "" },
+    "text": "Hi, Alice!",
+    "emotion": "surprised"
   }
 ]

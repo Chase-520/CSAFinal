@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.List;
@@ -23,10 +24,13 @@ public class GameScene {
     protected StackPane root;
     
     protected Label dialogueLabel;
+    protected Label nameLabel;
     protected ImageView bgImageView;
     protected ImageView dialogueBg;
     
     protected int currentIndex = 0;
+    
+    protected ScriptLoader loader;
     protected DialogueManager DM;
     protected SceneCompleteListener sceneCompleteListener;
 
@@ -46,7 +50,11 @@ public class GameScene {
         scene.setOnMouseClicked(e -> nextDialogue());
         setBackground(bgPath);
         initDialogueText();
+        initCharacterName();
+        loader = new ScriptLoader(textPath);
         loadDialogue(textPath);
+        initDialogueBackground();
+        
     }
     
     private void initCommonUI(int width, int height) {
@@ -65,22 +73,56 @@ public class GameScene {
     }
     
     private void initDialogueBackground() {
-    	Image bgImage = new Image(""); // TODO add patht o dialogue background
-    	dialogueBg = new ImageView(bgImage);
-    	dialogueBg.setFitWidth(400);
-    	dialogueBg.setFitHeight(200);
-    	StackPane.setAlignment(dialogueBg, Pos.BOTTOM_CENTER);
+    	// 1. Create gradient background panel first
+    	StackPane gradientBox = new StackPane();
+    	gradientBox.setMinWidth(1280);
+    	gradientBox.setMaxWidth(1280);
+    	gradientBox.setPrefHeight(100);
+    	gradientBox.setMinHeight(100);
+    	gradientBox.setMaxHeight(100);
+    	gradientBox.setStyle(
+    	    "-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, " +
+    	    "rgba(98, 176, 209, 1), " +        // bottom color (opaque)
+    	    "rgba(129, 196, 225, 0));" +       // top color (transparent)
+    	    "-fx-background-radius: 20;" +
+    	    "-fx-border-radius: 20;" +
+    	    "-fx-padding: 0;"
+    	);
+    	StackPane.setAlignment(gradientBox, Pos.BOTTOM_CENTER);
+    	StackPane.setMargin(gradientBox, new Insets(0, 0, -50, 0));
+    	root.getChildren().add(gradientBox);
+
+    	// 2. Create a container for your labels inside the root (not inside gradientBox)
+    	VBox dialogueContainer = new VBox(5);
+    	dialogueContainer.setPrefWidth(1280);
+    	dialogueContainer.setPadding(new Insets(10, 30, 20, 30));  // example padding
+    	dialogueContainer.setAlignment(Pos.BOTTOM_LEFT);
+
+    	// Add your labels to this container
+    	dialogueContainer.getChildren().addAll(nameLabel, dialogueLabel);
+    	StackPane.setAlignment(dialogueContainer, Pos.BOTTOM_CENTER);
+    	root.getChildren().add(dialogueContainer);
+
     }
     
+    private void initCharacterName() {
+    	nameLabel = new Label();
+    	nameLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+    	nameLabel.setWrapText(true);
+    	nameLabel.setOpacity(1);
+//    	StackPane.setAlignment(nameLabel, Pos.BOTTOM_LEFT);
+//    	StackPane.setMargin(nameLabel, new Insets(0,0,100,100));
+//    	root.getChildren().add(nameLabel);
+    }
     private void initDialogueText() {
     	dialogueLabel = new Label();
     	dialogueLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
     	dialogueLabel.setWrapText(true);
     	dialogueLabel.setOpacity(0.8);
-    	StackPane.setAlignment(dialogueLabel, Pos.BOTTOM_CENTER);
-    	// insets top right bottom left
-    	StackPane.setMargin(dialogueLabel, new Insets(0,0,100,0));
-    	root.getChildren().add(dialogueLabel);
+//    	StackPane.setAlignment(dialogueLabel, Pos.BOTTOM_CENTER);
+//    	// insets top right bottom left
+//    	StackPane.setMargin(dialogueLabel, new Insets(0,0,100,0));
+//    	root.getChildren().add(dialogueLabel);
     }
     
     
@@ -93,13 +135,14 @@ public class GameScene {
         DM = new DialogueManager(_loadDialogues(textPath));
         if (DM != null && !DM.isEmpty()) {
             DialogueLine line = DM.getCurrentLine();
-            showDialogue(line.getText());
+            showDialogue(line);
             DM.nextLine();
         }
     }
 
-    protected void showDialogue(String text) {
-        dialogueLabel.setText(text);
+    protected void showDialogue(DialogueLine line) {
+        dialogueLabel.setText(line.getText());
+        nameLabel.setText(line.getCharacter().getName());
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), dialogueLabel);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
@@ -109,9 +152,10 @@ public class GameScene {
     protected void nextDialogue() {
         if (DM != null && DM.hasNext()) {
             DialogueLine line = DM.getCurrentLine();
-            showDialogue(line.getText());
+            showDialogue(line);
             DM.nextLine();
         } else {
+        	System.out.println("mouse click triggered complete");
             onSceneComplete(); // When no more dialogue
         }
     }
@@ -133,6 +177,6 @@ public class GameScene {
     }
 
     protected List<DialogueLine> _loadDialogues(String textPath) {
-    	return loadTest.loadDialoguesFromCSV(textPath);
+    	return loader.getDialogueLines();
     }
 }
