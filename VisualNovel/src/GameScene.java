@@ -8,12 +8,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -26,7 +29,9 @@ public class GameScene {
     protected Label dialogueLabel;
     protected Label nameLabel;
     protected ImageView bgImageView;
-    protected ImageView dialogueBg;
+    protected ImageView dialogueBgView;
+    protected ImageView fgImageView;
+    private MediaPlayer bgmPlayer;
     
     protected int currentIndex = 0;
     
@@ -36,24 +41,28 @@ public class GameScene {
 
     public GameScene(int width, int height, String bg) {
         initCommonUI(width, height);
+        initMusic("H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3");
         Button startButton = new Button("Start");
         startButton.setStyle("-fx-pref-width: 120; -fx-pref-height: 90;");
         startButton.setOnAction(e -> onSceneComplete());
         StackPane.setAlignment(startButton, Pos.CENTER_LEFT);
         StackPane.setMargin(startButton, new Insets(0, 0, 50, 0));
-        setBackground(bg);
+        initBackground(bg);
         root.getChildren().add(startButton);
+        
     }
 
-    public GameScene(int width, int height, String bgPath, String textPath) {
+    public GameScene(int width, int height, String bgPath, String textPath, String musicPath) {
         initCommonUI(width, height);
         scene.setOnMouseClicked(e -> nextDialogue());
-        setBackground(bgPath);
+        initBackground(bgPath);
         initDialogueText();
         initCharacterName();
+        initCharacter();
         loader = new ScriptLoader(textPath);
         loadDialogue(textPath);
         initDialogueBackground();
+        initMusic(musicPath);
         
     }
     
@@ -63,27 +72,19 @@ public class GameScene {
         scene = new Scene(root, width, height);
     }
     
-    protected void setBackground(String bgPath) {
-    	Image bgImage = new Image(bgPath);
-    	bgImageView = new ImageView(bgImage);
-    	bgImageView.setFitWidth(scene.getWidth());
-    	bgImageView.setFitHeight(scene.getHeight());
-    	bgImageView.setPreserveRatio(false);
-    	root.getChildren().add(bgImageView);
-    }
-    
+
     private void initDialogueBackground() {
     	// 1. Create gradient background panel first
     	StackPane gradientBox = new StackPane();
     	gradientBox.setMinWidth(1280);
     	gradientBox.setMaxWidth(1280);
-    	gradientBox.setPrefHeight(100);
-    	gradientBox.setMinHeight(100);
-    	gradientBox.setMaxHeight(100);
+    	gradientBox.setPrefHeight(200);
+    	gradientBox.setMinHeight(200);
+    	gradientBox.setMaxHeight(200);
     	gradientBox.setStyle(
     	    "-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, " +
     	    "rgba(98, 176, 209, 1), " +        // bottom color (opaque)
-    	    "rgba(129, 196, 225, 0));" +       // top color (transparent)
+    	    "rgba(129, 196, 225, 0.3));" +       // top color (transparent)
     	    "-fx-background-radius: 20;" +
     	    "-fx-border-radius: 20;" +
     	    "-fx-padding: 0;"
@@ -114,6 +115,14 @@ public class GameScene {
 //    	StackPane.setMargin(nameLabel, new Insets(0,0,100,100));
 //    	root.getChildren().add(nameLabel);
     }
+
+    private void initCharacter() {
+    	fgImageView = new ImageView();
+    	StackPane.setAlignment(fgImageView, Pos.CENTER_LEFT);
+    	StackPane.setMargin(fgImageView, new Insets(100, 0, 0, -200));
+    	root.getChildren().add(fgImageView);
+    }
+    
     private void initDialogueText() {
     	dialogueLabel = new Label();
     	dialogueLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
@@ -126,11 +135,32 @@ public class GameScene {
     }
     
     
+    private void initMusic(String path) {
+    	Media bgMusic = new Media(new File(path).toURI().toString());
+        bgmPlayer = new MediaPlayer(bgMusic);
+        bgmPlayer.setCycleCount(MediaPlayer.INDEFINITE); // loop forever
+        //bgmPlayer.setVolume(0.3); // optional
+        bgmPlayer.play();
+    }
+    
+    protected void initBackground(String bgPath) {
+    	Image bgImage = new Image(bgPath);
+    	bgImageView = new ImageView(bgImage);
+    	bgImageView.setFitWidth(scene.getWidth());
+    	bgImageView.setFitHeight(scene.getHeight());
+    	bgImageView.setPreserveRatio(false);
+    	root.getChildren().add(bgImageView);
+    }
+    
+    public void setMusic(String path) {
+    	
+    }
+    
     public Scene getScene() {
     	return scene;
     }
 
-
+    
     protected void loadDialogue(String textPath) {
         DM = new DialogueManager(_loadDialogues(textPath));
         if (DM != null && !DM.isEmpty()) {
@@ -139,8 +169,11 @@ public class GameScene {
             DM.nextLine();
         }
     }
-
+    
+    
     protected void showDialogue(DialogueLine line) {
+    	Image fgImage = new Image(line.getCharacter().getPath());
+    	fgImageView.setImage(fgImage);
         dialogueLabel.setText(line.getText());
         nameLabel.setText(line.getCharacter().getName());
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), dialogueLabel);
@@ -173,6 +206,7 @@ public class GameScene {
             fadeOut.setOnFinished(event -> sceneCompleteListener.onSceneComplete(this));
         	fadeOut.play();
             //sceneCompleteListener.onSceneComplete(this);
+        	this.bgmPlayer.stop();
         }
     }
 

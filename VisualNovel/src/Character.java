@@ -6,6 +6,7 @@ public class Character {
     private String path;  // maybe a folder or base path for character resources
     protected Map<String, String> stateImages = new HashMap<>();
 
+
     // Default constructor
     public Character() {
     }

@@ -19,6 +19,7 @@ public class DialogueManager {
     	System.out.println("Mouse clicked");
     	System.out.println("line size: " + lines.size());
     	System.out.println("Current index: " + currentIndex);
+    	System.out.println("fgimage: " + lines.get(currentIndex).getCharacter().getPath());
         if (currentIndex < lines.size() - 1) {
             currentIndex++;
             return true; // advanced to next line

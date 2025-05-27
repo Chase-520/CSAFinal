@@ -1,22 +1,22 @@
 [
   {
-    "character": "Alice",
-    "expression": "happy",
+    "character": "Atri",
+    "expression": "default",
     "text": "Hi there! Welcome to our school."
   },
   {
-    "character": "Bob",
-    "expression": "neutral",
+    "character": "Atri",
+    "expression": "happy",
     "text": "Thanks, I'm a bit nervous though."
   },
   {
-    "character": "Alice",
-    "expression": "smile",
+    "character": "Atri",
+    "expression": "default",
     "text": "Don’t worry, everyone’s really friendly here."
   },
   {
-    "character": "Bob",
-    "expression": "surprised",
+    "character": "Atri",
+    "expression": "default",
     "text": "That's good to hear!"
   }
 ]

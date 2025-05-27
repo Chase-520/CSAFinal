@@ -1,12 +1,22 @@
 [
   {
-    "speaker": { "name": "Alice", "otherInfo": "" },
-    "text": "Hello there!",
-    "emotion": "happy"
+    "character": "Atri",
+    "expression": "default",
+    "text": "Hi there! Welcome to our school."
   },
   {
-    "speaker": { "name": "Bob", "otherInfo": "" },
-    "text": "Hi, Alice!",
-    "emotion": "surprised"
+    "character": "Atri",
+    "expression": "happy",
+    "text": "Thanks, I'm a bit nervous though."
+  },
+  {
+    "character": "Atri",
+    "expression": "default",
+    "text": "Don’t worry, everyone’s really friendly here."
+  },
+  {
+    "character": "Atri",
+    "expression": "default",
+    "text": "That's good to hear!"
   }
 ]
