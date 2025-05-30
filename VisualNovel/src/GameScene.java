@@ -1,24 +1,36 @@
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+
+// Optional
+import javafx.scene.text.FontPosture;
 
 
 public class GameScene {
@@ -32,6 +44,8 @@ public class GameScene {
     protected ImageView dialogueBgView;
     protected ImageView fgImageView;
     private MediaPlayer bgmPlayer;
+    private Pane fgLayer;
+
     
     protected int currentIndex = 0;
     
@@ -42,13 +56,25 @@ public class GameScene {
     public GameScene(int width, int height, String bg) {
         initCommonUI(width, height);
         initMusic("H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3");
+        
         Button startButton = new Button("Start");
         startButton.setStyle("-fx-pref-width: 120; -fx-pref-height: 90;");
         startButton.setOnAction(e -> onSceneComplete());
-        StackPane.setAlignment(startButton, Pos.CENTER_LEFT);
-        StackPane.setMargin(startButton, new Insets(0, 0, 50, 0));
+        StackPane.setAlignment(startButton, Pos.CENTER_RIGHT);
+        StackPane.setMargin(startButton, new Insets(0, 50, 0, 0));
+        
+        Label title = new Label();
+        title.setStyle("-fx-font-size: 48px; -fx-text-fill: white;");
+        title.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        title.setWrapText(true);
+        title.setOpacity(1);
+        title.setText("Game Title");
+        StackPane.setAlignment(title, Pos.TOP_CENTER);
+        StackPane.setMargin(title, new Insets(50,0,0,0));
+        
         initBackground(bg);
         root.getChildren().add(startButton);
+        root.getChildren().add(title);
         
     }
 
@@ -95,13 +121,29 @@ public class GameScene {
 
     	// 2. Create a container for your labels inside the root (not inside gradientBox)
     	VBox dialogueContainer = new VBox(5);
+    	// Create a horizontal Separator
+    	Separator separator = new Separator();
+    	separator.setOrientation(Orientation.HORIZONTAL);
+
+    	// Set a fixed width for the line
+    	separator.setPrefWidth(300);  // Set to your desired length
+    	separator.setMaxWidth(300);   // Prevent stretching in VBox
+    	separator.setStyle("-fx-background-color: white;"); // Optional: color
+
+    	// Optionally center or align it
+    	VBox.setMargin(separator, new Insets(5, 0, 20, 0));  // 20px bottom margin on nameLabel
+
+
+    	// Add the elements in order
     	dialogueContainer.setPrefWidth(1280);
     	dialogueContainer.setPadding(new Insets(10, 30, 20, 30));  // example padding
+    	
     	dialogueContainer.setAlignment(Pos.BOTTOM_LEFT);
-
+    	
     	// Add your labels to this container
-    	dialogueContainer.getChildren().addAll(nameLabel, dialogueLabel);
+    	dialogueContainer.getChildren().addAll(nameLabel, separator, dialogueLabel);
     	StackPane.setAlignment(dialogueContainer, Pos.BOTTOM_CENTER);
+    	StackPane.setMargin(dialogueContainer, new Insets(0,0,30,0));
     	root.getChildren().add(dialogueContainer);
 
     }
@@ -117,10 +159,14 @@ public class GameScene {
     }
 
     private void initCharacter() {
-    	fgImageView = new ImageView();
-    	StackPane.setAlignment(fgImageView, Pos.CENTER_LEFT);
-    	StackPane.setMargin(fgImageView, new Insets(100, 0, 0, -200));
-    	root.getChildren().add(fgImageView);
+        fgImageView = new ImageView();
+
+        // Create a Pane wrapper so we can control positioning
+        fgLayer = new Pane();
+        fgLayer.getChildren().add(fgImageView);
+
+        // Add the pane to the StackPane root
+        root.getChildren().add(fgLayer);
     }
     
     private void initDialogueText() {
@@ -174,6 +220,17 @@ public class GameScene {
     protected void showDialogue(DialogueLine line) {
     	Image fgImage = new Image(line.getCharacter().getPath());
     	fgImageView.setImage(fgImage);
+    	// Set the desired width and height (scales image)
+    	double scale = line.getCharacter().getScale();
+    	fgImageView.setScaleX(scale);
+    	fgImageView.setScaleY(scale);
+//    	fgImageView.setFitWidth(960*scale); // for example
+//    	fgImageView.setFitHeight(720*scale);
+    	fgImageView.setPreserveRatio(true);
+
+    	fgImageView.setLayoutX(line.getCharacter().getX());
+    	fgImageView.setLayoutY(line.getCharacter().getY());
+    	// Optional: preserve aspect ratio
         dialogueLabel.setText(line.getText());
         nameLabel.setText(line.getCharacter().getName());
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), dialogueLabel);
@@ -183,9 +240,9 @@ public class GameScene {
     }
 
     protected void nextDialogue() {
-        if (DM != null && DM.hasNext()) {
-            DialogueLine line = DM.getCurrentLine();
-            showDialogue(line);
+    	DialogueLine line = DM.getCurrentLine();
+        if (line != null) {
+        	showDialogue(line);
             DM.nextLine();
         } else {
         	System.out.println("mouse click triggered complete");

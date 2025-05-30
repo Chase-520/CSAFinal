@@ -5,18 +5,18 @@
     "text": "Hi there! Welcome to our school."
   },
   {
-    "character": "Atri",
+    "character": "Ryuji",
     "expression": "happy",
     "text": "Thanks, I'm a bit nervous though."
   },
   {
     "character": "Atri",
-    "expression": "default",
+    "expression": "confused",
     "text": "Don’t worry, everyone’s really friendly here."
   },
   {
-    "character": "Atri",
-    "expression": "default",
+    "character": "Ryuji",
+    "expression": "unhappy",
     "text": "That's good to hear!"
   }
 ]

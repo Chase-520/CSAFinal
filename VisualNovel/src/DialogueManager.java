@@ -9,18 +9,18 @@ public class DialogueManager {
     }
 
     public DialogueLine getCurrentLine() {
+    	System.out.println("Mouse clicked");
+    	System.out.println("line size: " + lines.size());
+    	System.out.println("Current index: " + currentIndex);
         if (currentIndex < lines.size()) {
+        	System.out.println("fgimage: " + lines.get(currentIndex).getCharacter().getPath());
             return lines.get(currentIndex);
         }
         return null; // end of script
     }
 
     public boolean nextLine() {
-    	System.out.println("Mouse clicked");
-    	System.out.println("line size: " + lines.size());
-    	System.out.println("Current index: " + currentIndex);
-    	System.out.println("fgimage: " + lines.get(currentIndex).getCharacter().getPath());
-        if (currentIndex < lines.size() - 1) {
+        if (currentIndex < lines.size()) {
             currentIndex++;
             return true; // advanced to next line
         }
@@ -37,7 +37,7 @@ public class DialogueManager {
     }
     
     public boolean hasNext() {
-    	return currentIndex<lines.size()-1;
+    	return currentIndex<lines.size();
     }
     public void reset() {
         currentIndex = 0;

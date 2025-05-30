@@ -5,6 +5,9 @@ public class Character {
     private String name;
     private String path;  // maybe a folder or base path for character resources
     protected Map<String, String> stateImages = new HashMap<>();
+    private int x;
+    private int y;
+    private double scale;
 
 
     // Default constructor
@@ -16,9 +19,25 @@ public class Character {
         this.name = name;
         this.stateImages.put("defual", path);
         this.path = path;
-        
+        selectXY();
     }
 
+    private void selectXY() {
+    	if(this.name.equals("Atri")) {
+    		this.x=-200;
+    		this.y=150;
+    		this.scale=1.5;
+    	}
+    	if(this.name.equals("Ryuji")){
+    		this.x=350;
+    		this.y=250;
+    		this.scale = 1.5;
+    	}
+    }
+    
+    public double getScale() {return this.scale;}
+    public int getX() {return this.x;}
+    public int getY() {return this.y;}
     // Getter and setter for name
     public String getName() {
         return name;
