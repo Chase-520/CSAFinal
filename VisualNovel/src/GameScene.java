@@ -192,7 +192,6 @@ public class GameScene {
 //    	root.getChildren().add(dialogueLabel);
     }
     
-    
     private void initMusic(String path) {
     	Media bgMusic = new Media(new File(path).toURI().toString());
         bgmPlayer = new MediaPlayer(bgMusic);
@@ -209,16 +208,22 @@ public class GameScene {
     	bgImageView.setPreserveRatio(false);
     	root.getChildren().add(bgImageView);
     }
-    
-// // Hover grow effect
-//    ScaleTransition grow = new ScaleTransition(Duration.millis(200), startText);
-//    grow.setToX(1.2);
-//    grow.setToY(1.2);
-//
-//    // Hover shrink effect
-//    ScaleTransition shrink = new ScaleTransition(Duration.millis(200), startText);
-//    shrink.setToX(1.0);
-//    shrink.setToY(1.0);
+
+    protected void initSmallButtons() {
+    	/*
+    	 * it only create a text node and bind some stuff to it, it doesn't do anything
+    	 * It's for the VISUAL!!!!!!!!!!!!
+    	 */
+        Text save = new Text("Save");
+        save.setFont(Font.font("Georgia", FontWeight.BOLD, 24));
+        save.setFill(Color.web("#BFFFF1"));   // Text fill color
+        save.setStroke(Color.WHITE);          // Border/stroke color
+        save.setStrokeWidth(2);               // Stroke thickness
+
+        save.setOnMouseEntered(e -> this.grow(save, 150));
+        save.setOnMouseExited(e -> this.shrink(save, 150));
+    	
+    }
     
     private void grow(Node nodein,int duration) {
 		ScaleTransition grow = new ScaleTransition(Duration.millis(duration), nodein);
@@ -241,7 +246,6 @@ public class GameScene {
     	return scene;
     }
 
-    
     protected void loadDialogue(String textPath) {
         DM = new DialogueManager(_loadDialogues(textPath));
         if (DM != null && !DM.isEmpty()) {
@@ -250,8 +254,7 @@ public class GameScene {
             DM.nextLine();
         }
     }
-    
-    
+       
     protected void showDialogue(DialogueLine line) {
     	Image fgImage = new Image(line.getCharacter().getPath());
     	fgImageView.setImage(fgImage);
