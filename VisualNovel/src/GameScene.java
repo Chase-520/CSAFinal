@@ -1,7 +1,9 @@
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -13,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -56,27 +59,36 @@ public class GameScene {
     public GameScene(int width, int height, String bg) {
         initCommonUI(width, height);
         initMusic("H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3");
-        
-        Button startButton = new Button("Start");
-        startButton.setStyle("-fx-pref-width: 120; -fx-pref-height: 90;");
-        startButton.setOnAction(e -> onSceneComplete());
-        StackPane.setAlignment(startButton, Pos.CENTER_RIGHT);
-        StackPane.setMargin(startButton, new Insets(0, 50, 0, 0));
-        
-        Label title = new Label();
-        title.setStyle("-fx-font-size: 48px; -fx-text-fill: white;");
+
+        // Background setup first
+        initBackground(bg);
+
+        // Title label
+        Label title = new Label("Game Title");
         title.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        title.setStyle("-fx-text-fill: white;");
         title.setWrapText(true);
         title.setOpacity(1);
-        title.setText("Game Title");
         StackPane.setAlignment(title, Pos.TOP_CENTER);
-        StackPane.setMargin(title, new Insets(50,0,0,0));
-        
-        initBackground(bg);
-        root.getChildren().add(startButton);
+        StackPane.setMargin(title, new Insets(50, 0, 0, 0));
         root.getChildren().add(title);
-        
+
+        // Interactive "Start" text with border
+        Text startText = new Text("Start");
+        startText.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        startText.setFill(Color.web("#BFFFF1"));   // Text fill color
+        startText.setStroke(Color.BLACK);          // Border/stroke color
+        startText.setStrokeWidth(2);               // Stroke thickness
+
+        startText.setOnMouseEntered(e -> this.grow(startText, 200));
+        startText.setOnMouseExited(e -> this.shrink(startText, 200));
+        startText.setOnMouseClicked(e -> onSceneComplete());
+
+        StackPane.setAlignment(startText, Pos.CENTER_RIGHT);
+        StackPane.setMargin(startText, new Insets(0, 50, 0, 0));
+        root.getChildren().add(startText);
     }
+
 
     public GameScene(int width, int height, String bgPath, String textPath, String musicPath) {
         initCommonUI(width, height);
@@ -91,7 +103,7 @@ public class GameScene {
         initMusic(musicPath);
         
     }
-    
+
     private void initCommonUI(int width, int height) {
         root = new StackPane();
         root.setStyle("-fx-padding: 20px;");
@@ -198,6 +210,29 @@ public class GameScene {
     	root.getChildren().add(bgImageView);
     }
     
+// // Hover grow effect
+//    ScaleTransition grow = new ScaleTransition(Duration.millis(200), startText);
+//    grow.setToX(1.2);
+//    grow.setToY(1.2);
+//
+//    // Hover shrink effect
+//    ScaleTransition shrink = new ScaleTransition(Duration.millis(200), startText);
+//    shrink.setToX(1.0);
+//    shrink.setToY(1.0);
+    
+    private void grow(Node nodein,int duration) {
+		ScaleTransition grow = new ScaleTransition(Duration.millis(duration), nodein);
+	 	grow.setToX(1.2);
+	 	grow.setToY(1.2);
+	 	grow.playFromStart();
+    }
+    
+    private void shrink(Node nodein, int duration) {
+    	ScaleTransition shrink = new ScaleTransition(Duration.millis(duration),nodein);
+    	shrink.setToX(1.0);
+    	shrink.setToY(1.0);
+    	shrink.playFromStart();
+    }
     public void setMusic(String path) {
     	
     }

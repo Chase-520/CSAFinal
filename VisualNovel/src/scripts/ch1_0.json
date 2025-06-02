@@ -1,0 +1,133 @@
+[
+ {
+   "character": "???",
+   "expression": "default",
+   "text": "'...'"
+ },
+ {
+   "character": "???",
+   "expression": "default",
+   "text": "'...'"
+ },
+ {
+   "character": "You",
+   "expression": "default",
+   "text": "'Where am I?'"
+ },
+ {
+   "character": "???",
+   "expression": "default",
+   "text": "'...'"
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'Hello?'"
+  },
+ {
+	"character": "",
+	"expression":"default",
+	"text":"You call out to the vast emptiness, but recieve only silence in response."
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "It doesn't feel like the silence of isolation. It feels more like a deliberate lack of response."
+ },
+ {
+     "character": "???",
+     "expression": "default",
+     "text": "'...'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "You look around."
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "You're standing in the middle of an empty street."
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "Rows and rows of small, lifeless houses surround you in the dark evening fog."
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "They seem abandoned... there is no one else walking up or down the street, there are no cars on the roads or in the driveways, there's no movement of any kind anywhere."
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'Helloooooo?!'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "You call out to the fog once more."
+ },
+ {
+     "character": "???",
+     "expression": "default",
+     "text": "'...'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "You wait awhile, but only recieve that same eerie silence in response."
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "Even still, you feel a presence accompanying you. It feels like there's something just beyond the ominous fog, waiting."
+ },
+ {
+     "character": "???",
+     "expression": "default",
+     "text": "'...'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "Your hands tremble uncontrollably in fear. You can't move your legs, or even your lips. Your body feels sluggish and numb."
+ },
+ {
+     "character": "???",
+     "expression": "default",
+     "text": "'...'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "'the'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "'rain'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "'always'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "'felt'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "'so'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "'nice'"
+ }
+]
+

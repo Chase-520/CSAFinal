@@ -16,13 +16,12 @@ public class VNEngine extends Application {
     	loadSceneTree();
         controller = new SceneController(stage,sceneTree);
         
-        controller.registerScene("ch1_0", () -> new IntroScene(1280, 720, "bg/title.jpg"));
-        controller.registerScene("ch1_1", () -> new IntroScene(1280, 720, "bg/bg001c.png"));
-        controller.registerScene("ch1_2", () -> new GameScene(1280, 720, "bg/bg001.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\test.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3"));
-        controller.registerScene("ch1_3", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\test.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3"));
+        controller.registerScene("Title", () -> new IntroScene(1280, 720, "bg/StartManu.png"));
+        controller.registerScene("ch1_0", () -> new GameScene(1280, 720, "bg/bg001.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_0.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3"));
+        controller.registerScene("ch1_1", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_1.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3"));
         // register many more scenes...
         
-        controller.setScene("ch1_0");
+        controller.setScene("Title");
     }
 
     public static void main(String[] args) {
@@ -32,9 +31,8 @@ public class VNEngine extends Application {
 	private void loadSceneTree() {
 		// TODO read from file??
 		sceneTree = new ArrayList<String>();
+		sceneTree.add("Title");
 		sceneTree.add("ch1_0");
-		//sceneTree.add("ch1_1");
-		sceneTree.add("ch1_2");
-		sceneTree.add("ch1_3");
+		sceneTree.add("ch1_1");
 	}
 }

@@ -1,0 +1,43 @@
+[
+ {
+   "character": "",
+   "expression": "default",
+   "text": "You bolt upright in bed abruptly, throwing the covers off and gasping."
+ },
+ {
+   "character": "",
+   "expression": "default",
+   "text": "You're alone, in your messy apartment, but that silence from before still lingers with you."
+ },
+ {
+   "character": "You",
+   "expression": "default",
+   "text": "'What on earth was that?'"
+ },
+ {
+   "character": "",
+   "expression": "default",
+   "text": "You can remember the dream so clearly, so vividly; as if it were a real, lucid memory."
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "As you rack your brain, trying to recall how it ended, your gaze wanders over to the cluttered bedside table."
+ },
+ {
+	"character": "You",
+	"expression":"default",
+	"text":"'...'"
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'Crap!! I'm gonna be late!!!!"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "..."
+ }
+]
+
