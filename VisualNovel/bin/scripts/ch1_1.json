@@ -25,14 +25,14 @@
      "text": "As you rack your brain, trying to recall how it ended, your gaze wanders over to the cluttered bedside table."
  },
  {
-	"character": "You",
+	 "character": "You",
 	"expression":"default",
 	"text":"'...'"
  },
  {
      "character": "You",
      "expression": "default",
-     "text": "'Crap!! I'm gonna be late!!!!"
+     "text": "'Crap!! I'm gonna be late!!!!'"
  },
  {
      "character": "",

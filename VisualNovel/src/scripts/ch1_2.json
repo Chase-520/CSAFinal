@@ -1,0 +1,123 @@
+[
+ {
+   "character": "",
+   "expression": "default",
+   "text": "You finally stop and take a breath when you reach the train station."
+ },
+ {
+   "character": "You",
+   "expression": "default",
+   "text": "'Hah... hahh... I really need to learn how to drive.'"
+ },
+ {
+   "character": "???",
+   "expression": "default",
+   "text": "'Late as always, Isaac.'"
+ },
+ {
+   "character": "",
+   "expression": "default",
+   "text": "At the mention of your name, you look up in search of the source of that familiar voice."
+ },
+ {
+   "character": "",
+   "expression": "default",
+   "text": "Standing in front of you is Clark, a friend from your university."
+ },
+ {
+	"character": "Clark",
+	"expression":"happy",
+	"text":"'Yo!'"
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'m-morning . . .'"
+ },
+ {
+     "character": "Clark",
+     "expression": "default",
+     "text": "'Woah dude, you alright? Don't push yourself too hard!'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "As he laughs, Clark offers his hand and you take it, pulling yourself back upright."
+ },
+ {
+     "character": "Clark",
+     "expression": "default",
+     "text": "'Well, hurry it up! We're about to miss the next train!"
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'Ah, got it!'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "The two of you scramble across the platform, boarding as soon as the next train arrives before it promptly pulls out of the station."
+ },
+ {
+     "character": "Clark",
+     "expression": "default",
+     "text": "'So? What was it this time? Pull an all-nighter playing V*lorant again?'"
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'No, dude—'"
+ },
+ {
+     "character": "Clark",
+     "expression": "happy",
+     "text": "'What? M*necraft, then?'"
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'No, dude. I actually went to bed last night!'"
+ },
+ {
+     "character": "Clark",
+     "expression": "default",
+     "text": "'...ehh??'"
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'Oh, give me a break.'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "Clark is very outgoing and friendly, with a cheery and friendly personality."
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "Despite that, he's actually more diligent with his studies than you are."
+ },
+ {
+     "character": "You",
+     "expression": "default",
+     "text": "'Whatever, man.'"
+ },
+ {
+     "character": "Clark",
+     "expression": "happy",
+     "text": "'Pfft—'"
+ },
+ {
+     "character": "Clark",
+     "expression": "default",
+     "text": "'Sorry, sorry.'"
+ },
+ {
+     "character": "",
+     "expression": "default",
+     "text": "You sigh. The rest of the train ride is spent in relative silence, with Clark holding in his laughter almost the whole way."
+ }
+]
+

@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -47,8 +48,10 @@ public class GameScene {
     protected ImageView dialogueBgView;
     protected ImageView fgImageView;
     private MediaPlayer bgmPlayer;
+    private MediaPlayer errorPlayer;
+    private MediaPlayer clickPlayer;
     private Pane fgLayer;
-
+    
     
     protected int currentIndex = 0;
     
@@ -83,10 +86,39 @@ public class GameScene {
         startText.setOnMouseEntered(e -> this.grow(startText, 200));
         startText.setOnMouseExited(e -> this.shrink(startText, 200));
         startText.setOnMouseClicked(e -> onSceneComplete());
+        
+        Text LoadText = new Text("Load");
+        LoadText.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        LoadText.setFill(Color.web("#BFFFF1"));   // Text fill color
+        LoadText.setStroke(Color.BLACK);          // Border/stroke color
+        LoadText.setStrokeWidth(2);               // Stroke thickness
+
+        LoadText.setOnMouseEntered(e -> this.grow(LoadText, 200));
+        LoadText.setOnMouseExited(e -> this.shrink(LoadText, 200));
+        LoadText.setOnMouseClicked(e -> this.onErrorClicked());
+        
+        Text continueText = new Text("Conitnue");
+        continueText.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        continueText.setFill(Color.web("#BFFFF1"));   // Text fill color
+        continueText.setStroke(Color.BLACK);          // Border/stroke color
+        continueText.setStrokeWidth(2);               // Stroke thickness
+
+        continueText.setOnMouseEntered(e -> this.grow(continueText, 200));
+        continueText.setOnMouseExited(e -> this.shrink(continueText, 200));
+        continueText.setOnMouseClicked(e -> this.onErrorClicked());
 
         StackPane.setAlignment(startText, Pos.CENTER_RIGHT);
         StackPane.setMargin(startText, new Insets(0, 50, 0, 0));
+        
+        StackPane.setAlignment(LoadText, Pos.CENTER_RIGHT);
+        StackPane.setMargin(LoadText, new Insets(100, 50, 0, 0));
+        
+        StackPane.setAlignment(continueText, Pos.CENTER_RIGHT);
+        StackPane.setMargin(continueText, new Insets(200, 50, 0, 0));
+        
         root.getChildren().add(startText);
+        root.getChildren().add(LoadText);
+        root.getChildren().add(continueText);
     }
 
 
@@ -100,6 +132,7 @@ public class GameScene {
         loader = new ScriptLoader(textPath);
         loadDialogue(textPath);
         initDialogueBackground();
+        initSmallButtons();
         initMusic(musicPath);
         
     }
@@ -110,7 +143,6 @@ public class GameScene {
         scene = new Scene(root, width, height);
     }
     
-
     private void initDialogueBackground() {
     	// 1. Create gradient background panel first
     	StackPane gradientBox = new StackPane();
@@ -198,6 +230,14 @@ public class GameScene {
         bgmPlayer.setCycleCount(MediaPlayer.INDEFINITE); // loop forever
         //bgmPlayer.setVolume(0.3); // optional
         bgmPlayer.play();
+        
+        // load sfx
+        Media sfx = new Media(new File("H:\\git\\CSAFinal\\VisualNovel\\src\\music\\error-8-206492.mp3").toURI().toString());
+    	errorPlayer = new MediaPlayer(sfx);
+    	
+    	Media clicksfx = new Media(new File("H:\\git\\CSAFinal\\VisualNovel\\src\\music\\mouse-click-117076.mp3").toURI().toString());
+    	clickPlayer = new MediaPlayer(clicksfx);
+        
     }
     
     protected void initBackground(String bgPath) {
@@ -214,14 +254,39 @@ public class GameScene {
     	 * it only create a text node and bind some stuff to it, it doesn't do anything
     	 * It's for the VISUAL!!!!!!!!!!!!
     	 */
-        Text save = new Text("Save");
-        save.setFont(Font.font("Georgia", FontWeight.BOLD, 24));
-        save.setFill(Color.web("#BFFFF1"));   // Text fill color
-        save.setStroke(Color.WHITE);          // Border/stroke color
-        save.setStrokeWidth(2);               // Stroke thickness
+    	
+    	HBox box = new HBox(20);  // spacing of 20 between children
+    	box.setPadding(new Insets(10));  // optional padding around the box
 
-        save.setOnMouseEntered(e -> this.grow(save, 150));
-        save.setOnMouseExited(e -> this.shrink(save, 150));
+    	// Example button: "Save"
+    	Text save = new Text("Save");
+    	save.setFont(Font.font("Georgia", FontWeight.BOLD, 24));
+    	save.setFill(Color.web("#BFFFF1"));
+    	save.setStroke(Color.WHITE);
+    	save.setStrokeWidth(2);
+    	save.setOnMouseEntered(e -> grow(save, 150));
+    	save.setOnMouseExited(e -> shrink(save, 150));
+    	save.setOnMouseClicked(e -> this.onErrorClicked());
+
+    	// Example button: "Load"
+    	Text load = new Text("Load");
+    	load.setFont(Font.font("Georgia", FontWeight.BOLD, 24));
+    	load.setFill(Color.web("#BFFFF1"));
+    	load.setStroke(Color.WHITE);
+    	load.setStrokeWidth(2);
+    	load.setOnMouseEntered(e -> grow(load, 150));
+    	load.setOnMouseExited(e -> shrink(load, 150));
+    	load.setOnMouseClicked(e -> this.onErrorClicked());
+
+    	// Add all buttons to the HBox
+    	box.getChildren().addAll(save, load);
+    	
+    	StackPane.setAlignment(box, Pos.CENTER_RIGHT);
+    	StackPane.setMargin(box, new Insets(520,0,0,1000));
+    	root.getChildren().add(box);
+        
+        
+        
     	
     }
     
@@ -278,6 +343,7 @@ public class GameScene {
     }
 
     protected void nextDialogue() {
+    	this.onClicked();
     	DialogueLine line = DM.getCurrentLine();
         if (line != null) {
         	showDialogue(line);
@@ -294,6 +360,7 @@ public class GameScene {
 
 
     protected void onSceneComplete() {
+    	this.onClicked();
         if (sceneCompleteListener != null) {
         	FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), root);
         	fadeOut.setFromValue(100);
@@ -303,6 +370,16 @@ public class GameScene {
             //sceneCompleteListener.onSceneComplete(this);
         	this.bgmPlayer.stop();
         }
+    }
+    
+    protected void onErrorClicked() {
+    	errorPlayer.seek(Duration.ZERO);
+    	errorPlayer.play();
+    }
+    
+    protected void onClicked() {
+    	clickPlayer.seek(Duration.ZERO);
+    	clickPlayer.play();
     }
 
     protected List<DialogueLine> _loadDialogues(String textPath) {
