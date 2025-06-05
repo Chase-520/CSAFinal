@@ -67,11 +67,12 @@ public class GameScene {
         initBackground(bg);
 
         // Title label
-        Label title = new Label("Game Title");
+        Text title = new Text("Game Title");
         title.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
         title.setStyle("-fx-text-fill: white;");
-        title.setWrapText(true);
         title.setOpacity(1);
+        title.setStroke(Color.BLACK);          // Border/stroke color
+        title.setStrokeWidth(2);  
         StackPane.setAlignment(title, Pos.TOP_CENTER);
         StackPane.setMargin(title, new Insets(50, 0, 0, 0));
         root.getChildren().add(title);
@@ -107,11 +108,12 @@ public class GameScene {
         continueText.setOnMouseExited(e -> this.shrink(continueText, 200));
         continueText.setOnMouseClicked(e -> this.onErrorClicked());
 
+        
         StackPane.setAlignment(startText, Pos.CENTER_RIGHT);
-        StackPane.setMargin(startText, new Insets(0, 50, 0, 0));
+        StackPane.setMargin(startText, new Insets(-200, 50, 0, 0));
         
         StackPane.setAlignment(LoadText, Pos.CENTER_RIGHT);
-        StackPane.setMargin(LoadText, new Insets(100, 50, 0, 0));
+        StackPane.setMargin(LoadText, new Insets(0, 50, 0, 0));
         
         StackPane.setAlignment(continueText, Pos.CENTER_RIGHT);
         StackPane.setMargin(continueText, new Insets(200, 50, 0, 0));
@@ -126,12 +128,12 @@ public class GameScene {
         initCommonUI(width, height);
         scene.setOnMouseClicked(e -> nextDialogue());
         initBackground(bgPath);
-        initDialogueText();
-        initCharacterName();
-        initCharacter();
         loader = new ScriptLoader(textPath);
-        loadDialogue(textPath);
+        initCharacter();
         initDialogueBackground();
+        initCharacterName();
+        loadDialogue(textPath);
+        initDialogueText();
         initSmallButtons();
         initMusic(musicPath);
         
@@ -163,8 +165,6 @@ public class GameScene {
     	StackPane.setMargin(gradientBox, new Insets(0, 0, -50, 0));
     	root.getChildren().add(gradientBox);
 
-    	// 2. Create a container for your labels inside the root (not inside gradientBox)
-    	VBox dialogueContainer = new VBox(5);
     	// Create a horizontal Separator
     	Separator separator = new Separator();
     	separator.setOrientation(Orientation.HORIZONTAL);
@@ -173,22 +173,9 @@ public class GameScene {
     	separator.setPrefWidth(300);  // Set to your desired length
     	separator.setMaxWidth(300);   // Prevent stretching in VBox
     	separator.setStyle("-fx-background-color: white;"); // Optional: color
-
-    	// Optionally center or align it
-    	VBox.setMargin(separator, new Insets(5, 0, 20, 0));  // 20px bottom margin on nameLabel
-
-
-    	// Add the elements in order
-    	dialogueContainer.setPrefWidth(1280);
-    	dialogueContainer.setPadding(new Insets(10, 30, 20, 30));  // example padding
-    	
-    	dialogueContainer.setAlignment(Pos.BOTTOM_LEFT);
-    	
-    	// Add your labels to this container
-    	dialogueContainer.getChildren().addAll(nameLabel, separator, dialogueLabel);
-    	StackPane.setAlignment(dialogueContainer, Pos.BOTTOM_CENTER);
-    	StackPane.setMargin(dialogueContainer, new Insets(0,0,30,0));
-    	root.getChildren().add(dialogueContainer);
+    	StackPane.setAlignment(separator, Pos.BOTTOM_LEFT);
+    	StackPane.setMargin(separator, new Insets(0,0,110,100));
+    	root.getChildren().add(separator);
 
     }
     
@@ -197,9 +184,9 @@ public class GameScene {
     	nameLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
     	nameLabel.setWrapText(true);
     	nameLabel.setOpacity(1);
-//    	StackPane.setAlignment(nameLabel, Pos.BOTTOM_LEFT);
-//    	StackPane.setMargin(nameLabel, new Insets(0,0,100,100));
-//    	root.getChildren().add(nameLabel);
+    	StackPane.setAlignment(nameLabel, Pos.BOTTOM_LEFT);
+    	StackPane.setMargin(nameLabel, new Insets(0,0,110,100));
+    	root.getChildren().add(nameLabel);
     }
 
     private void initCharacter() {
@@ -218,10 +205,9 @@ public class GameScene {
     	dialogueLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
     	dialogueLabel.setWrapText(true);
     	dialogueLabel.setOpacity(0.8);
-//    	StackPane.setAlignment(dialogueLabel, Pos.BOTTOM_CENTER);
-//    	// insets top right bottom left
-//    	StackPane.setMargin(dialogueLabel, new Insets(0,0,100,0));
-//    	root.getChildren().add(dialogueLabel);
+    	StackPane.setAlignment(dialogueLabel, Pos.BOTTOM_CENTER);
+    	StackPane.setMargin(dialogueLabel, new Insets(0,0,60,0));
+    	root.getChildren().add(dialogueLabel);
     }
     
     private void initMusic(String path) {

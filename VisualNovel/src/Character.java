@@ -28,10 +28,10 @@ public class Character {
     		this.y=150;
     		this.scale=1.5;
     	}
-    	if(this.name.equals("Ryuji")){
-    		this.x=350;
-    		this.y=250;
-    		this.scale = 1.5;
+    	if(this.name.equals("Clark")){
+    		this.x=0;
+    		this.y=0;
+    		this.scale = 1.0;
     	}
     }
     
