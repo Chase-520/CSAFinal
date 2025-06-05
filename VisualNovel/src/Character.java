@@ -23,10 +23,17 @@ public class Character {
     }
 
     private void selectXY() {
-    	if(this.name.equals("Atri")) {
-    		this.x=-200;
-    		this.y=150;
-    		this.scale=1.5;
+    	if(this.name.equals("Sky")) {
+    		if(this.path.substring(this.path.length()-5).equals("happy")) {
+    			this.x=0;
+    			this.y=0;
+    			this.scale=1.0;
+    		}else {
+    			this.x=-100;
+        		this.y=0;
+        		this.scale=1.5;
+    		}
+    		
     	}
     	if(this.name.equals("Clark")){
     		this.x=0;

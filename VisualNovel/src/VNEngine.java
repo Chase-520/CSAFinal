@@ -20,9 +20,12 @@ public class VNEngine extends Application {
         controller.registerScene("ch1_0", () -> new GameScene(1280, 720, "bg/bg001.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_0.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM05.mp3"));
         controller.registerScene("ch1_1", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_1.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM03.mp3"));
         controller.registerScene("ch1_2", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_2.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM04.mp3"));
+        controller.registerScene("ch1_3", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_3.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM05.mp3"));
+        controller.registerScene("ch1_4", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_4.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM05.mp3"));
+        controller.registerScene("ch1_5", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_5.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM05.mp3"));
 
         // register many more scenes...
-        controller.registerScene("test", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\test.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM04.mp3"));
+        controller.registerScene("test", () -> new GameScene(1280, 720, "bg/ev003el.png", "H:\\git\\CSAFinal\\VisualNovel\\src\\scripts\\ch1_5.json","H:\\git\\CSAFinal\\VisualNovel\\src\\music\\BGM04.mp3"));
 
         controller.setScene("Title");
     }
@@ -39,6 +42,9 @@ public class VNEngine extends Application {
 		sceneTree.add("ch1_0");
 		sceneTree.add("ch1_1");
 		sceneTree.add("ch1_2");
+		sceneTree.add("ch1_3");
+		sceneTree.add("ch1_4");
+		sceneTree.add("ch1_5");
 		
 	}
 }

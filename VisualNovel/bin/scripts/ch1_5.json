@@ -1,0 +1,38 @@
+[
+{
+  "character": "",
+  "expression": "default",
+  "text": "As the three of you step off the train, you finally notice where you are."
+},
+{
+  "character": "",
+  "expression": "default",
+  "text": "Rows of empty suburban houses fill the foggy landscape."
+},
+{
+  "character": "",
+  "expression": "default",
+  "text": "Rain cascades down through the gray fog in sheets."
+},
+{
+  "character": "Sky",
+  "expression": "confused",
+  "text": "'Did anyone bring an umbrella...?'"
+},
+{
+  "character": "Clark",
+  "expression": "unhappy",
+  "text": "'That train really just dropped us off in the middle of nowhere... Where are we??'"
+},
+{
+	"character": "???",
+	"expression":"default",
+	"text":"'...'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'This is... this is my dream...'"
+}
+]
+

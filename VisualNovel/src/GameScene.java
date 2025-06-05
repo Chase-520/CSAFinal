@@ -1,26 +1,36 @@
 import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.List;
+
+
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,6 +52,8 @@ public class GameScene {
     protected Scene scene;
     protected StackPane root;
     
+    private String textPath;
+    
     protected Label dialogueLabel;
     protected Label nameLabel;
     protected ImageView bgImageView;
@@ -51,6 +63,9 @@ public class GameScene {
     private MediaPlayer errorPlayer;
     private MediaPlayer clickPlayer;
     private Pane fgLayer;
+    private Group chapterFlag;
+    private Text flagText;
+    private boolean justEntered = true;
     
     
     protected int currentIndex = 0;
@@ -66,68 +81,106 @@ public class GameScene {
         // Background setup first
         initBackground(bg);
 
-        // Title label
-        Text title = new Text("Game Title");
-        title.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
-        title.setStyle("-fx-text-fill: white;");
-        title.setOpacity(1);
-        title.setStroke(Color.BLACK);          // Border/stroke color
-        title.setStrokeWidth(2);  
-        StackPane.setAlignment(title, Pos.TOP_CENTER);
-        StackPane.setMargin(title, new Insets(50, 0, 0, 0));
-        root.getChildren().add(title);
+        // Stroke-only title (behind)
+        Text titleStroke = new Text("Sleepwalking");
+        titleStroke.setFont(Font.font("Lucida Calligraphy", FontWeight.BOLD, 75));
+        titleStroke.setFill(Color.TRANSPARENT);
+        titleStroke.setStroke(Color.web("#2C3E50")); // or any dark blue you prefer
+        titleStroke.setStrokeWidth(6); // Adjust as needed
 
-        // Interactive "Start" text with border
-        Text startText = new Text("Start");
-        startText.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
-        startText.setFill(Color.web("#BFFFF1"));   // Text fill color
-        startText.setStroke(Color.BLACK);          // Border/stroke color
-        startText.setStrokeWidth(2);               // Stroke thickness
+        // Fill-only title (in front)
+        Text titleFill = new Text("Sleepwalking");
+        titleFill.setFont(Font.font("Lucida Calligraphy", FontWeight.BOLD, 75));
+        titleFill.setFill(Color.web("#F1F1F1"));
+        titleFill.setStrokeWidth(0);
 
-        startText.setOnMouseEntered(e -> this.grow(startText, 200));
-        startText.setOnMouseExited(e -> this.shrink(startText, 200));
-        startText.setOnMouseClicked(e -> onSceneComplete());
-        
-        Text LoadText = new Text("Load");
-        LoadText.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
-        LoadText.setFill(Color.web("#BFFFF1"));   // Text fill color
-        LoadText.setStroke(Color.BLACK);          // Border/stroke color
-        LoadText.setStrokeWidth(2);               // Stroke thickness
+        // Layer the title text
+        Group titleGroup = new Group(titleStroke, titleFill);
 
-        LoadText.setOnMouseEntered(e -> this.grow(LoadText, 200));
-        LoadText.setOnMouseExited(e -> this.shrink(LoadText, 200));
-        LoadText.setOnMouseClicked(e -> this.onErrorClicked());
-        
-        Text continueText = new Text("Conitnue");
-        continueText.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
-        continueText.setFill(Color.web("#BFFFF1"));   // Text fill color
-        continueText.setStroke(Color.BLACK);          // Border/stroke color
-        continueText.setStrokeWidth(2);               // Stroke thickness
+        // Position it
+        StackPane.setAlignment(titleGroup, Pos.TOP_CENTER);
+        StackPane.setMargin(titleGroup, new Insets(50, 0, 0, 0));
 
-        continueText.setOnMouseEntered(e -> this.grow(continueText, 200));
-        continueText.setOnMouseExited(e -> this.shrink(continueText, 200));
-        continueText.setOnMouseClicked(e -> this.onErrorClicked());
+        root.getChildren().add(titleGroup);
 
+        // Stroke-only text (behind)
+        Text startStroke = new Text("Start");
+        startStroke.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        startStroke.setFill(Color.TRANSPARENT); // No fill
+        startStroke.setStroke(Color.web("#2C3E50"));
+        startStroke.setStrokeWidth(10);
+
+        // Fill-only text (in front)
+        Text startFill = new Text("Start");
+        startFill.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        startFill.setFill(Color.WHITE); // Fill color
+        startFill.setStrokeWidth(0);
+
+        // Stack them together
+        Group startTextStack = new Group(startStroke, startFill);
+
+
+        startTextStack.setOnMouseEntered(e -> this.grow(startTextStack, 200));
+        startTextStack.setOnMouseExited(e -> this.shrink(startTextStack, 200));
+        startTextStack.setOnMouseClicked(e -> onSceneComplete());
         
-        StackPane.setAlignment(startText, Pos.CENTER_RIGHT);
-        StackPane.setMargin(startText, new Insets(-200, 50, 0, 0));
+     // ==== Load Button ====
+        Text loadStroke = new Text("Load");
+        loadStroke.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        loadStroke.setFill(Color.TRANSPARENT);
+        loadStroke.setStroke(Color.web("#2C3E50"));
+        loadStroke.setStrokeWidth(10);
+
+        Text loadFill = new Text("Load");
+        loadFill.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        loadFill.setFill(Color.WHITE);
+        loadFill.setStrokeWidth(0);
+
+        Group loadTextStack = new Group(loadStroke, loadFill);
+        loadTextStack.setOnMouseEntered(e -> this.grow(loadTextStack, 200));
+        loadTextStack.setOnMouseExited(e -> this.shrink(loadTextStack, 200));
+        loadTextStack.setOnMouseClicked(e -> this.onErrorClicked());
+
+
+        // ==== Continue Button ====
+        Text continueStroke = new Text("Continue");
+        continueStroke.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        continueStroke.setFill(Color.TRANSPARENT);
+        continueStroke.setStroke(Color.web("#2C3E50"));
+        continueStroke.setStrokeWidth(10);
+
+        Text continueFill = new Text("Continue");
+        continueFill.setFont(Font.font("Georgia", FontWeight.BOLD, 48));
+        continueFill.setFill(Color.WHITE);
+        continueFill.setStrokeWidth(0);
+
+        Group continueTextStack = new Group(continueStroke, continueFill);
+        continueTextStack.setOnMouseEntered(e -> this.grow(continueTextStack, 200));
+        continueTextStack.setOnMouseExited(e -> this.shrink(continueTextStack, 200));
+        continueTextStack.setOnMouseClicked(e -> this.onErrorClicked());
+
+
+        StackPane.setAlignment(startTextStack, Pos.CENTER_RIGHT);
+        StackPane.setMargin(startTextStack, new Insets(-200, 50, 0, 0));
         
-        StackPane.setAlignment(LoadText, Pos.CENTER_RIGHT);
-        StackPane.setMargin(LoadText, new Insets(0, 50, 0, 0));
+        StackPane.setAlignment(loadTextStack, Pos.CENTER_RIGHT);
+        StackPane.setMargin(loadTextStack, new Insets(0, 50, 0, 0));
         
-        StackPane.setAlignment(continueText, Pos.CENTER_RIGHT);
-        StackPane.setMargin(continueText, new Insets(200, 50, 0, 0));
+        StackPane.setAlignment(continueTextStack, Pos.CENTER_RIGHT);
+        StackPane.setMargin(continueTextStack, new Insets(200, 50, 0, 0));
         
-        root.getChildren().add(startText);
-        root.getChildren().add(LoadText);
-        root.getChildren().add(continueText);
+        root.getChildren().add(startTextStack);
+        root.getChildren().add(loadTextStack);
+        root.getChildren().add(continueTextStack);
     }
 
 
     public GameScene(int width, int height, String bgPath, String textPath, String musicPath) {
+    	this.textPath = textPath;
         initCommonUI(width, height);
         scene.setOnMouseClicked(e -> nextDialogue());
         initBackground(bgPath);
+        initChapterFlag();
         loader = new ScriptLoader(textPath);
         initCharacter();
         initDialogueBackground();
@@ -150,9 +203,9 @@ public class GameScene {
     	StackPane gradientBox = new StackPane();
     	gradientBox.setMinWidth(1280);
     	gradientBox.setMaxWidth(1280);
-    	gradientBox.setPrefHeight(200);
-    	gradientBox.setMinHeight(200);
-    	gradientBox.setMaxHeight(200);
+    	gradientBox.setPrefHeight(220);
+    	gradientBox.setMinHeight(220);
+    	gradientBox.setMaxHeight(220);
     	gradientBox.setStyle(
     	    "-fx-background-color: linear-gradient(from 0% 100% to 0% 0%, " +
     	    "rgba(98, 176, 209, 1), " +        // bottom color (opaque)
@@ -184,8 +237,15 @@ public class GameScene {
     	nameLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
     	nameLabel.setWrapText(true);
     	nameLabel.setOpacity(1);
+    	DropShadow dropShadow = new DropShadow();
+    	dropShadow.setOffsetX(2.0);
+    	dropShadow.setOffsetY(2.0);
+    	dropShadow.setColor(Color.BLACK); // Or any shadow color
+
+    	// Apply to your Label
+    	nameLabel.setEffect(dropShadow);
     	StackPane.setAlignment(nameLabel, Pos.BOTTOM_LEFT);
-    	StackPane.setMargin(nameLabel, new Insets(0,0,110,100));
+    	StackPane.setMargin(nameLabel, new Insets(0,0,120,100));
     	root.getChildren().add(nameLabel);
     }
 
@@ -201,15 +261,70 @@ public class GameScene {
     }
     
     private void initDialogueText() {
-    	dialogueLabel = new Label();
-    	dialogueLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
-    	dialogueLabel.setWrapText(true);
-    	dialogueLabel.setOpacity(0.8);
-    	StackPane.setAlignment(dialogueLabel, Pos.BOTTOM_CENTER);
-    	StackPane.setMargin(dialogueLabel, new Insets(0,0,60,0));
-    	root.getChildren().add(dialogueLabel);
+        AnchorPane dialoguePane = new AnchorPane();
+
+        dialogueLabel = new Label("...");
+        dialogueLabel.setWrapText(true);
+        dialogueLabel.setMaxWidth(800);
+        // ❌ Don't set minHeight — let the label expand based on content
+        // ✅ Align text inside the label (optional, but good practice)
+        dialogueLabel.setAlignment(Pos.CENTER_LEFT);
+        dialogueLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+        dialogueLabel.setOpacity(0.8);
+        
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setOffsetX(2.0);
+        dropShadow.setOffsetY(2.0);
+        dropShadow.setColor(Color.BLACK); // Or any shadow color
+
+        // Apply to your Label
+        dialogueLabel.setEffect(dropShadow);
+        
+        // Anchor to fixed top-left position
+        AnchorPane.setTopAnchor(dialogueLabel, 580.0);
+        AnchorPane.setLeftAnchor(dialogueLabel, 100.0);
+
+        dialoguePane.getChildren().add(dialogueLabel);
+        root.getChildren().add(dialoguePane);
     }
     
+    private void initChapterFlag() {
+        // Create the rectangular part of the flag
+    	Color flagColor = Color.web("#f88c00ff");
+        Rectangle rect = new Rectangle(200, 50); // Width, Height
+        rect.setFill(flagColor);
+        rect.setArcWidth(10); // Optional: rounded corners
+        rect.setArcHeight(10);
+
+        // Create the triangular "arrow" part
+        Polygon triangle = new Polygon();
+        triangle.getPoints().addAll(
+            198.0, 0.0,   // Top right of rectangle
+            230.0, 25.0,  // Tip of triangle
+            198.0, 50.0   // Bottom right of rectangle
+        );
+        triangle.setFill(flagColor);
+
+        // Create the text inside the rectangle
+        flagText = new Text(this.textPath.substring(this.textPath.length()-10,this.textPath.length()-5));
+        flagText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        flagText.setFill(Color.WHITE);
+
+        // StackPane to center the text over the rectangle
+        StackPane labelStack = new StackPane();
+        labelStack.setPrefSize(200, 50);
+        labelStack.getChildren().addAll(rect, flagText);
+
+        // Group everything into one node
+        chapterFlag = new Group(labelStack, triangle);
+
+
+        StackPane.setAlignment(chapterFlag, Pos.TOP_LEFT);
+        StackPane.setMargin(chapterFlag, new Insets(10,0,0,-20));
+        // Add it to your root or another pane
+        root.getChildren().add(chapterFlag);
+    }
+   
     private void initMusic(String path) {
     	Media bgMusic = new Media(new File(path).toURI().toString());
         bgmPlayer = new MediaPlayer(bgMusic);
@@ -330,6 +445,24 @@ public class GameScene {
 
     protected void nextDialogue() {
     	this.onClicked();
+    	if (this.justEntered) {
+    		// Create slide-left animation
+    		TranslateTransition slideLeft = new TranslateTransition(Duration.seconds(1), chapterFlag);
+    		slideLeft.setByX(-150); // Move 150px left
+    		
+    		// Create fade-out animation
+    		FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), chapterFlag);
+    		fadeOut.setToValue(0); // Fully transparent
+    		
+    		// Run both animations together
+    		ParallelTransition parallel = new ParallelTransition(slideLeft, fadeOut);
+    		parallel.play();
+    		
+    		// Optional: remove from parent after fade
+    		parallel.setOnFinished(e -> ((Pane) chapterFlag.getParent()).getChildren().remove(chapterFlag));
+    		
+    		this.justEntered =false;
+    	}
     	DialogueLine line = DM.getCurrentLine();
         if (line != null) {
         	showDialogue(line);

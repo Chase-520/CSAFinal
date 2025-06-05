@@ -1,0 +1,123 @@
+[
+{
+  "character": "",
+  "expression": "default",
+  "text": "It's late evening as the three of you stand on the train."
+},
+{
+  "character": "",
+  "expression": "default",
+  "text": "The passengers had thinned throughout the day, now the train car is almost empty."
+},
+{
+  "character": "ANNOUNCEMENT:",
+  "expression": "default",
+  "text": "'NOW ARRIVING AT: Hillcrest.'"
+},
+{
+  "character": "You",
+  "expression": "default",
+  "text": "'It's almost our stop.'"
+},
+{
+  "character": "Clark",
+  "expression": "default",
+  "text": "'Maaaan... I can't wait to get home and take a long shower.'"
+},
+{
+	"character": "Sky",
+	"expression":"unhappy",
+	"text":"'Lucky. You guys live so close.'"
+},
+{
+    "character": "ANNOUNCEMENT:",
+    "expression": "default",
+    "text": "'NOW DEPARTING.'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'Do you guys wanna grab something to eat first?'"
+},
+{
+    "character": "Clark",
+    "expression": "happy",
+    "text": "'Oh man, I'm so down."
+},
+{
+    "character": "Sky",
+    "expression": "default",
+    "text": "'Sure, if you're treating.'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'Now, hold on a second! When did I say I was—'"
+},
+{
+    "character": "ANNOUNCEMENT:",
+    "expression": "default",
+    "text": "'THE FINAL STOP WILL BE THE LAST. PLEASE DEPART AT THE NEXT STATION. THANK YOU.'"
+},
+{
+    "character": "Clark",
+    "expression": "unhappy",
+    "text": "'What??'"
+},
+{
+    "character": "ANNOUNCEMENT:",
+    "expression": "default",
+    "text": "THE NEXT STATION WILL BE: ███████."
+},
+{
+    "character": "Sky",
+    "expression": "confused",
+    "text": "'Huh? Did anyone catch that?'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'Did we miss a station...?'"
+},
+{
+    "character": "Clark",
+    "expression": "default",
+    "text": "Clark rubs his eyes warily."
+},
+{
+    "character": "Clark",
+    "expression": "default",
+    "text": "'All three of us? How tired are we?'"
+},
+{
+    "character": "Sky",
+    "expression": "confused",
+    "text": "'Ehhh... well, I did stay up pretty late playing G*nshin last night...'"
+},
+{
+    "character": "",
+    "expression": "default",
+    "text": "The three of you look around, realizing that you're the only ones left on the train."
+},
+{
+    "character": "Clark",
+    "expression": "default",
+    "text": "'So much for asking someone.'"
+},
+{
+    "character": "???",
+    "expression": "default",
+    "text": "'...'"
+},
+{
+    "character": "",
+    "expression": "default",
+    "text": "A chill runs down your spine. That presence from before."
+},
+{
+    "character": "ANNOUNCEMENT:",
+    "expression": "unhappy",
+    "text": "'NOW ARRIVING AT: ███████.'"
+}
+]
+

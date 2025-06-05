@@ -1,0 +1,143 @@
+[
+{
+  "character": "You",
+  "expression": "default",
+  "text": "'Man... that was rough.'"
+},
+{
+  "character": "",
+  "expression": "default",
+  "text": "You pack your things from your seat as your last class for the day finishes up."
+},
+{
+  "character": "???",
+  "expression": "default",
+  "text": "'Hey Isaac!'"
+},
+{
+  "character": "",
+  "expression": "default",
+  "text": "You turn to face the girl who had called you out, standing beside your seat."
+},
+{
+  "character": "Sky",
+  "expression": "happy",
+  "text": "'Today's lecture was rough, huh?'"
+},
+{
+	"character": "You",
+	"expression":"default",
+	"text":"'Sure was. So? What is it this time?'"
+},
+{
+    "character": "Sky",
+    "expression": "confused",
+    "text": "'Ah... whatever could you mean by that?'"
+},
+{
+    "character": "",
+    "expression": "default",
+    "text": "You raise your eyebrow at her."
+},
+{
+    "character": "Sky",
+    "expression": "default",
+    "text": "'So, can I borrow your notes?'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'And there it is.'"
+},
+{
+    "character": "",
+    "expression": "default",
+    "text": "With a sigh of resignation, you reach into your bag and retrieve your notebook."
+},
+{
+    "character": "Sky",
+    "expression": "happy",
+    "text": "'Thanks Isaac!!'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'Yeah, yeah. Just make sure to bring them back by tomorrow.'"
+},
+{
+    "character": "Sky",
+    "expression": "default",
+    "text": "She motions to you in a saluting gesture."
+},
+{
+    "character": "Sky",
+    "expression": "default",
+    "text": "'Yes sir!'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'Hurry up, let's go meet Clark.'"
+},
+{
+    "character": "Clark",
+    "expression": "happy",
+    "text": "'Meet who?'"
+},
+{
+    "character": "",
+    "expression": "default",
+    "text": "You both turn towards the entrance of the lecture hall. Clark is standing in the doorframe, leaning against the wall."
+},
+{
+    "character": "Sky",
+    "expression": "happy",
+    "text": "'Clark!! You know, we were just talking about you!'"
+},
+{
+    "character": "Clark",
+    "expression": "happy",
+    "text": "'Oh?'"
+},
+{
+    "character": "Sky",
+    "expression": "happy",
+    "text": "'Soooo...'"
+},
+{
+    "character": "Sky",
+    "expression": "confused",
+    "text": "'...would you happen to have the notes from math?'"
+},
+{
+    "character": "You",
+    "expression": "default",
+    "text": "'Take your own notes!'"
+},
+{
+    "character": "Sky",
+    "expression": "unhappy",
+    "text": "'We get the same grades!'"
+},
+{
+  "character": "Clark",
+  "expression": "unhappy",
+  "text": "Clark also knows by now that it's pointless to argue, and hands his own notebook off with a sigh."
+},
+{
+  "character": "Sky",
+  "expression": "happy",
+  "text": "'Thaaank youuuu!'"
+},
+{
+  "character": "You",
+  "expression": "default",
+  "text": "'Let's get going. I need to get home earlier to start on my project.'"
+},
+{
+  "character": "",
+  "expression": "default",
+  "text": "The others nod, and follow you towards the exit."
+}
+]
+
